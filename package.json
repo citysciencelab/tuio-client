@@ -1,6 +1,6 @@
 {
   "name": "tuio-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A web client utility that converts socket-transmitted TUIO messages to browser events",
   "main": "dist/index.js",
   "scripts": {
