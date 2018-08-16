@@ -11,7 +11,8 @@ import { Tuio2DObject } from './2d-object.model';
  * so it only works with clients supporting PointerEvent.
  */
 export class TuioClient {
-    constructor() {
+    constructor(options = {}) {
+        this.options = options;
         this.protocol = '1.1';
         this.socketUrl = 'localhost';
         this.defaultPacketSource = 'localhost';
@@ -140,6 +141,9 @@ export class TuioClient {
         }
     }
     createPointerEvent(type, cursor) {
+        if (this.options.enableCursorEvent === false) {
+            return;
+        }
         if (!this.clientSupportsPointerEvent) {
             throw new Error('This browser doesn\'t support PointerEvent');
         }
@@ -165,6 +169,9 @@ export class TuioClient {
         }
     }
     createObjectEvent(type, object) {
+        if (this.options.enableObjectEvent === false) {
+            return;
+        }
         const pageX = document.documentElement.clientWidth * object.xPosition;
         const pageY = document.documentElement.clientHeight * object.yPosition;
         const target = document.elementFromPoint(pageX, pageY);

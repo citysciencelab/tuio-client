@@ -6,9 +6,14 @@
 
 import * as io from 'socket.io-client';
 import { TuioPacket } from './packet.model';
-import { TuioMessage, TuioSourceMessage, TuioAliveMessage, TuioSetMessage, TuioFseqMessage } from './message.model';
+import { TuioSourceMessage, TuioAliveMessage, TuioSetMessage, TuioFseqMessage } from './message.model';
 import { Tuio2DCursor } from './2d-cursor.model';
 import { Tuio2DObject } from './2d-object.model';
+
+export interface TuioClientOptions {
+  enableCursorEvent?: boolean,
+  enableObjectEvent?: boolean
+}
 
 /**
  * Service implementing TUIO cursor and object events. Touch functionality is based on PointerEvent,
@@ -18,19 +23,19 @@ export class TuioClient {
   protocol = '1.1';
   socketUrl = 'localhost';
   defaultPacketSource = 'localhost';
+  connected: boolean;
   private socket!: SocketIOClient.Socket;
-  private connected: boolean;
   private cursors: {[key: string]: Tuio2DCursor[]};
   private objects: {[key: string]: Tuio2DObject[]};
   private clientSupportsPointerEvent: boolean;
 
-  constructor() {
+  constructor(private options: TuioClientOptions = {}) {
     this.connected = false;
     this.cursors = {};
     this.objects = {};
     this.clientSupportsPointerEvent = typeof PointerEvent !== 'undefined';
   }
-  
+
   connect(socketUrl: string) {
     this.socketUrl = socketUrl;
     this.socket = io.connect(this.socketUrl);
@@ -165,6 +170,9 @@ export class TuioClient {
   }
 
   createPointerEvent(type: string, cursor: Tuio2DCursor) {
+    if (this.options.enableCursorEvent === false) {
+      return;
+    }
     if (!this.clientSupportsPointerEvent) {
       throw new Error('This browser doesn\'t support PointerEvent');
     }
@@ -193,6 +201,9 @@ export class TuioClient {
   }
 
   createObjectEvent(type: string, object: Tuio2DObject) {
+    if (this.options.enableObjectEvent === false) {
+      return;
+    }
     const pageX = document.documentElement.clientWidth * object.xPosition;
     const pageY = document.documentElement.clientHeight * object.yPosition;
     const target = document.elementFromPoint(pageX, pageY);
