@@ -12,10 +12,10 @@
   "author": "Jan Behrens",
   "license": "MIT",
   "dependencies": {
-    "socket.io-client": "^2.1.0"
+    "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
     "@types/socket.io-client": "^1.4.32",
-    "typescript": "^2.8.1"
+    "typescript": "^2.9.2"
   }
 }
