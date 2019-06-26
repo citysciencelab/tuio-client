@@ -1,6 +1,6 @@
 {
   "name": "tuio-client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A web client utility that converts socket-transmitted TUIO messages to browser events",
   "main": "dist/index.js",
   "scripts": {
@@ -12,10 +12,10 @@
   "author": "Jan Behrens",
   "license": "MIT",
   "dependencies": {
-    "socket.io-client": "^2.1.1"
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "@types/socket.io-client": "^1.4.32",
-    "typescript": "^2.9.2"
+    "typescript": "^3.5.2"
   }
 }

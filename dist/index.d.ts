@@ -1,3 +1,8 @@
+/**
+ * Adapted from: https://github.com/ekryski/caress-client
+ * License: MIT
+ * Copyright 2012 Eric Kryski
+ */
 import { TuioPacket } from './packet.model';
 import { TuioSourceMessage, TuioAliveMessage, TuioSetMessage, TuioFseqMessage } from './message.model';
 import { Tuio2DCursor } from './2d-cursor.model';
